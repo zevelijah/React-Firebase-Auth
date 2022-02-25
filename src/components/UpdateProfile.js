@@ -98,7 +98,7 @@ export default function UpdateProfile() {
           <Link to="/">Cancel</Link>
         </div>
       </Card>
-      </Container>
+    </Container>
     </>
   )
 }
