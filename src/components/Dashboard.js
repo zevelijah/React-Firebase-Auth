@@ -1,5 +1,5 @@
 import React, { useState } from "react"
-import { Card, Button, Alert, Container } from "react-bootstrap"
+import { Card, Button, Alert } from "react-bootstrap"
 import { useAuth } from "../contexts/AuthContext"
 import { Link, useHistory } from "react-router-dom"
 
@@ -21,26 +21,28 @@ export default function Dashboard() {
 
   return (
     <>
-      <Container
-      className="d-flex align-items-center justify-content-center text-center"
-      style={{ minHeight: "100vh" }}
+      <div class="header">
+            
+      </div>
+      <Card
+        style={{ width: '18rem' }
+        }
+        className="mb-2"
       >
-        <Card>
-          <Card.Body>
-            <h2 className="text-center mb-4">Profile</h2>
-            {error && <Alert variant="danger">{error}</Alert>}
-            <strong>Email:</strong> {currentUser.email}
-            <Link to="/update-profile" className="btn btn-primary w-100 mt-3">
-              Update Profile
-            </Link>
-          </Card.Body>
-          <div className="w-100 text-center mt-2">
-            <Button variant="link" onClick={handleLogout}>
-              Log Out
-            </Button>
-          </div>
-        </Card>
-      </Container>
-    </>
+        <Card.Body>
+          <h2 className="text-center mb-4">Profile</h2>
+          {error && <Alert variant="danger">{error}</Alert>}
+          <strong>Email:</strong> {currentUser.email}
+          <Link to="/update-profile" className="btn btn-primary w-100 mt-3">
+            Update Profile
+          </Link>
+        </Card.Body>
+        <div className="w-100 text-center mt-2">
+          <Button variant="link" onClick={handleLogout}>
+            Log Out
+          </Button>
+        </div>
+      </Card>
+  </>
   )
 }
