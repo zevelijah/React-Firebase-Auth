@@ -11,20 +11,18 @@ import Help from "./Help"
 
 function App() {
   return (
-    <div className="w-100" style={{ maxWidth: "50vh" }}>
-      <Router>
-        <AuthProvider>
-          <Switch>
-            <PrivateRoute exact path="/" component={Dashboard} />
-            <PrivateRoute path="/update-profile" component={UpdateProfile} />
-            <Route path="/help" component={Help} />
-            <Route path="/signup" component={Signup} />
-            <Route path="/login" component={Login} />
-            <Route path="/forgot-password" component={ForgotPassword} />
-          </Switch>
-        </AuthProvider>
-      </Router>
-    </div>
+    <Router>
+      <AuthProvider>
+        <Switch>
+          <PrivateRoute exact path="/" component={Dashboard} />
+          <PrivateRoute path="/update-profile" component={UpdateProfile} />
+          <Route path="/help" component={Help} />
+          <Route path="/signup" component={Signup} />
+          <Route path="/login" component={Login} />
+          <Route path="/forgot-password" component={ForgotPassword} />
+        </Switch>
+      </AuthProvider>
+    </Router>
   )
 }
 
