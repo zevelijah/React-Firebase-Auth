@@ -1,5 +1,5 @@
 import React, { useContext, useState, useEffect } from "react"
-import { auth } from "../firebase"
+import { auth, database } from "../firebase"
 
 const AuthContext = React.createContext()
 
@@ -19,6 +19,10 @@ export function AuthProvider({ children }) {
     return auth.signInWithEmailAndPassword(email, password)
   }
 
+  function loginWithGoogle() {
+    return auth.signInWithGoogle
+  }
+
   function logout() {
     return auth.signOut()
   }
@@ -35,10 +39,29 @@ export function AuthProvider({ children }) {
     return currentUser.updatePassword(password)
   }
 
+  function updateUsername(username) {
+    console.log('zoe')
+    currentUser.databaseRecord.username = username   
+    database.ref('users/' + currentUser.uid + '/username').set(username)
+  }
+
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged(user => {
+      if (user && !user.databaseRecord) {
+        console.log('mom')
+        user.databaseRecord = {}
+        console.log('dad')
+      }
       setCurrentUser(user)
-      setLoading(false)
+      if (user) {
+        let userMetadataRef = database.ref("users/" + user.uid + "/");
+        userMetadataRef.once('value').then(snapshot => {
+          user.databaseRecord = snapshot.val()
+          setLoading(false)
+        })
+      } else {
+        setLoading(false)
+      }
     })
 
     return unsubscribe
@@ -51,7 +74,9 @@ export function AuthProvider({ children }) {
     logout,
     resetPassword,
     updateEmail,
-    updatePassword
+    updatePassword,
+    updateUsername,
+    loginWithGoogle
   }
 
   return (

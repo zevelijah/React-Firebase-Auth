@@ -1,13 +1,14 @@
 import React, { useRef, useState } from "react"
-import { Form, Button, Card, Alert } from "react-bootstrap"
+import { Form, Button, Card, Alert, Container} from "react-bootstrap"
 import { useAuth } from "../contexts/AuthContext"
 import { Link, useHistory } from "react-router-dom"
 
 export default function UpdateProfile() {
   const emailRef = useRef()
+  const usernameRef = useRef()
   const passwordRef = useRef()
   const passwordConfirmRef = useRef()
-  const { currentUser, updatePassword, updateEmail } = useAuth()
+  const { currentUser, updatePassword, updateEmail, updateUsername} = useAuth()
   const [error, setError] = useState("")
   const [loading, setLoading] = useState(false)
   const history = useHistory()
@@ -28,7 +29,9 @@ export default function UpdateProfile() {
     if (passwordRef.current.value) {
       promises.push(updatePassword(passwordRef.current.value))
     }
-
+    if (usernameRef.current.value !== currentUser.displayName) {
+      promises.push(updateUsername(usernameRef.current.value))
+    }    
     Promise.all(promises)
       .then(() => {
         history.push("/")
@@ -43,6 +46,10 @@ export default function UpdateProfile() {
 
   return (
     <>
+    <Container
+      className="d-flex align-items-center justify-content-center text-left"
+      style={{ minHeight: "100vh" }}
+    >
       <Card>
         <Card.Body>
           <h2 className="text-center mb-4">Update Profile</h2>
@@ -55,6 +62,15 @@ export default function UpdateProfile() {
                 ref={emailRef}
                 required
                 defaultValue={currentUser.email}
+              />
+            </Form.Group>
+            <Form.Group id="username">
+              <Form.Label>Username</Form.Label>
+              <Form.Control
+                type="text"
+                ref={usernameRef}
+                required
+                defaultValue={currentUser.databaseRecord.username}
               />
             </Form.Group>
             <Form.Group id="password">
@@ -78,10 +94,11 @@ export default function UpdateProfile() {
             </Button>
           </Form>
         </Card.Body>
+        <div className="w-100 text-center mt-2">
+          <Link to="/">Cancel</Link>
+        </div>
       </Card>
-      <div className="w-100 text-center mt-2">
-        <Link to="/">Cancel</Link>
-      </div>
+      </Container>
     </>
   )
 }

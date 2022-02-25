@@ -1,5 +1,5 @@
 import React, { useState } from "react"
-import { Card, Button, Alert } from "react-bootstrap"
+import { Card, Button, Alert, Container } from "react-bootstrap"
 import { useAuth } from "../contexts/AuthContext"
 import { Link, useHistory } from "react-router-dom"
 
@@ -21,6 +21,10 @@ export default function Dashboard() {
 
   return (
     <>
+      <Container
+      className="d-flex align-items-center justify-content-center text-center"
+      style={{ minHeight: "100vh" }}
+    >
       <Card>
         <Card.Body>
           <h2 className="text-center mb-4">Profile</h2>
@@ -30,12 +34,13 @@ export default function Dashboard() {
             Update Profile
           </Link>
         </Card.Body>
+        <div className="w-100 text-center mt-2">
+          <Button variant="link" onClick={handleLogout}>
+            Log Out
+          </Button>
+        </div>
       </Card>
-      <div className="w-100 text-center mt-2">
-        <Button variant="link" onClick={handleLogout}>
-          Log Out
-        </Button>
-      </div>
+    </Container>
     </>
   )
 }
