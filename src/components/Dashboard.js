@@ -24,11 +24,11 @@ export default function Dashboard() {
       <link rel="stylesheet" href="code/React-Firebase-Auth/Css-Stlyheets/dasboard.css" />
       <div id="header">
         <div id="title">
-          <h1 id="title-content">Flash Cards Galore</h1> 
+          <h1 id="title-content">Flash Cards Galore<br/>(Localhost Test)</h1> 
         </div>
         <Card
           id="prof"
-          style={{ width: "18rem" },
+          style={{ width: "60vw" },
           {float: "right"}
           }
         >
