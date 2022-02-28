@@ -7,6 +7,8 @@ import Login from "./Login"
 import PrivateRoute from "./PrivateRoute"
 import ForgotPassword from "./ForgotPassword"
 import UpdateProfile from "./UpdateProfile"
+import DeckEdit from "./DeckEdit"
+import DeckNew from "./DeckNew"
 import Help from "./Help"
 
 function App() {
@@ -17,6 +19,8 @@ function App() {
           <PrivateRoute exact path="/" component={Dashboard} />
           <PrivateRoute path="/update-profile" component={UpdateProfile} />
           <Route path="/help" component={Help} />
+          <Route path="/deck/new" component={DeckNew} />
+          <Route path="/deck/edit/:id" component={DeckEdit} />
           <Route path="/signup" component={Signup} />
           <Route path="/login" component={Login} />
           <Route path="/forgot-password" component={ForgotPassword} />
