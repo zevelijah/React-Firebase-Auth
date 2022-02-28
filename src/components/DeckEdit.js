@@ -21,6 +21,9 @@ export default function DeckEdit() {
       if (d.metadata === undefined) {
         d.metadata = {}
       }
+      if (d.cards === undefined) {
+        d.cards = {}
+      }
       setCurrentDeck(d)
     });
     }, [])  
@@ -28,12 +31,12 @@ export default function DeckEdit() {
 
   function updateMetadata(e) {
     e.preventDefault()
-    database.ref('decks/' + deckId+  '/metadata').set({name: deckNameRef.current.value, description: deckDescriptionRef.current.value})
+    database.ref('decks/' + deckId +  '/metadata').set({name: deckNameRef.current.value, description: deckDescriptionRef.current.value})
   }
 
   function addCard(e) {
     e.preventDefault()
-    database.ref('decks/' + deckId+  '/cards').push({question: deckQuestionRef.current.value, answer: deckAnswerRef.current.value})
+    database.ref('decks/' + deckId +  '/cards').push({question: deckQuestionRef.current.value, answer: deckAnswerRef.current.value})
     deckQuestionRef.current.value = ""
     deckAnswerRef.current.value = ""
   }
