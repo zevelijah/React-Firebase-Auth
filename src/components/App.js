@@ -10,6 +10,7 @@ import UpdateProfile from "./UpdateProfile"
 import DeckEdit from "./DeckEdit"
 import DeckNew from "./DeckNew"
 import Help from "./Help"
+import PlayDeck from "./PlayDeck"
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
         <Switch>
           <PrivateRoute exact path="/" component={Dashboard} />
           <PrivateRoute path="/update-profile" component={UpdateProfile} />
+          <Route path="/deck/play/:id" component={PlayDeck} />
           <Route path="/help" component={Help} />
           <Route path="/deck/new" component={DeckNew} />
           <Route path="/deck/edit/:id" component={DeckEdit} />
