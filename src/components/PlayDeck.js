@@ -1,12 +1,19 @@
 import React, { useRef, useState, useEffect } from "react"
 import { database } from "../firebase"
 import { Link, useParams } from "react-router-dom"
+import { useAuth } from "../contexts/AuthContext"
 import { Form, Button, Card, Alert, Container} from "react-bootstrap"
 export default function PlayDeck() {  
-  const [currentDeck, setCurrentDeck] = useState({metadata:{}, cards: {}, cardList: []})
+  const [currentDeck, setCurrentDeck] = useState({currentIndex: 0, metadata:{}, cards: {}, cardList: []})
   const { id } = useParams();
-  var currentIndex = 0
+  const { currentUser } = useAuth()
+  
+  // var userRef = database.ref('users/' + currentUser.uid)
 
+  // // if (database.ref(`users/${currentUser.uid}/`))
+  // // database.ref(`users/${currentUser}`).push({'currentIndex': 0})
+  // // const currentDeck.currentIndex = database.ref(`users/${currentUser.uid}/currentIndex`).child('currentIndex') 
+  
   var deckId = id
   var deckRef = database.ref('decks/' + deckId);
   useEffect(() => {
@@ -24,52 +31,66 @@ export default function PlayDeck() {
       Object.keys(d.cards).map((key, index) => 
         d.cardList.push(d.cards[key])
       );
+      if (d.cardList.length > 0) {
+        d.currentIndex = 0
+      }
       setCurrentDeck(d)
     });
     }, [])  
   function getCurrentQuestion() {
-    if (currentDeck.cardList && currentDeck.cardList.length > currentIndex) {
-      return currentDeck.cardList[currentIndex].question
+    if (currentDeck.cardList && currentDeck.cardList.length > currentDeck.currentIndex) {
+      return currentDeck.cardList[currentDeck.currentIndex].question
     }
     return "no cards"
   }
   function nextQuestion() {
-    if (currentDeck.cardList && currentDeck.cardList.length > currentIndex) {
-      currentIndex = currentIndex + 1
+    if (currentDeck.cardList && currentDeck.cardList.length > currentDeck.currentIndex) {
+      let current = {}
+      current.currentIndex = currentDeck.currentIndex + 1
+      current.cardList = currentDeck.cardList
+      current.metadata = currentDeck.metadata
+      current.cards = currentDeck.cards
+      setCurrentDeck(current)
     }
   }
   function previousQuestion() {
-    if (currentDeck.cardList && currentIndex > 0) {
-      currentIndex = currentIndex - 1
+    if (currentDeck.cardList && currentDeck.currentIndex > 0) {
+      let current = {}
+      current.currentIndex = currentDeck.currentIndex - 1
+      current.cardList = currentDeck.cardList
+      current.metadata = currentDeck.metadata
+      current.cards = currentDeck.cards
+      setCurrentDeck(current)
     }
   }
-  function simulateNetworkRequest() {
-    return new Promise((resolve) => setTimeout(resolve, 2000));
-  }
-  function LoadingButton() {
-      const [isLoading, setLoading] = useState(false);
-      useEffect(() => {
-        if (isLoading) {
-          simulateNetworkRequest().then(() => {
-            setLoading(false);
-          });
-        }
-      }, [isLoading]);
-    const handleClick = () => setLoading(true);
-    return (
-      <Button
-      variant="primary"
-      disabled={isLoading}
-      onClick={!isLoading ? handleClick : null}
-      >
-        {isLoading ? 'Loading…' : 'Click to load'}
-      </Button>
-    )
-  }
+  // function simulateNetworkRequest() {
+  //   return new Promise((resolve) => setTimeout(resolve, 2000));
+  // }
+  // function LoadingButton() {
+  //     const [isLoading, setLoading] = useState(false);
+  //     useEffect(() => {
+  //       if (isLoading) {
+  //         simulateNetworkRequest().then(() => {
+  //           setLoading(false);
+  //         });
+  //       }
+  //     }, [isLoading]);
+  //   const handleClick = () => setLoading(true);
+  //   return (
+  //     <Button
+  //     variant="primary"
+  //     disabled={isLoading}
+  //     onClick={!isLoading ? handleClick : null}
+  //     >
+  //       {isLoading ? 'Loading…' : 'Click to load'}
+  //     </Button>
+  //   )
+  // }
   return (
     <>
       <h3>play {currentDeck.metadata.name}</h3>
-      {getCurrentQuestion()}
+      {getCurrentQuestion(currentDeck.currentIndex)}
+      <br/>
       <Button onClick={previousQuestion}>Previous</Button>
       <Button onClick={nextQuestion}>Next</Button> 
     </>
