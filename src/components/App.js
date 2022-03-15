@@ -19,10 +19,10 @@ function App() {
         <Switch>
           <PrivateRoute exact path="/" component={Dashboard} />
           <PrivateRoute path="/update-profile" component={UpdateProfile} />
-          <Route path="/deck/play/:id" component={PlayDeck} />
           <Route path="/help" component={Help} />
           <Route path="/deck/new" component={DeckNew} />
           <Route path="/deck/edit/:id" component={DeckEdit} />
+          <Route path = "/deck/play/:id" component={PlayDeck}/>
           <Route path="/signup" component={Signup} />
           <Route path="/login" component={Login} />
           <Route path="/forgot-password" component={ForgotPassword} />

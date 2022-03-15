@@ -120,9 +120,7 @@ export default function DeckEdit() {
           </Form>
         </Card.Body>
         <CardList cards={currentDeck.cards}></CardList>
-        <Link to="/deck/play/:deckId" className="btn btn-primary w-100 mt-3">
-            Play Deck
-        </Link>
+        <Link to={location => `/deck/play/${deckId}`} className="btn btn-primary w-100 mt-3">Play Deck</Link>  
         <div className="w-100 text-center mt-2">
           <Link to="/">Cancel</Link>
         </div>

@@ -26,12 +26,7 @@ export default function Dashboard() {
         <div id="title">
           <h1 id="title-content">Flash Cards Galore<br/>(Localhost Test)</h1> 
         </div>
-        <Card
-          id="prof"
-          style={{ width: "60vw" },
-          {float: "right"}
-          }
-        >
+        <Card id="prof" style={{ width: "60vw" }, {float: "right"}}>
           <Card.Body>
             <h2 className="text-center mb-4">Profile</h2>
             {error && <Alert variant="danger">{error}</Alert>}
