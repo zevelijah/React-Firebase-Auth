@@ -6,7 +6,7 @@ import { Form, Button, Card, Alert, Container} from "react-bootstrap"
 export default function PlayDeck() {  
   const [currentDeck, setCurrentDeck] = useState({currentIndex: 0, metadata:{}, cards: {}, cardList: []})
   const { id } = useParams();
-  
+
   var deckId = id
   var deckRef = database.ref('decks/' + deckId);
   useEffect(() => {
@@ -34,7 +34,12 @@ export default function PlayDeck() {
     if (currentDeck.cardList && currentDeck.cardList.length > currentDeck.currentIndex) {
       return currentDeck.cardList[currentDeck.currentIndex].question
     }
-    return "no cards"
+    return (
+      <>
+       no new cards
+       <Link to={location => `/deck/edit/${deckId}`} className="btn btn-primary">Back to deck page</Link>
+      </>
+    )
   }
   function nextQuestion() {
     if (currentDeck.cardList && currentDeck.cardList.length > currentDeck.currentIndex) {
