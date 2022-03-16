@@ -91,7 +91,7 @@ export default function PlayDeck() {
       <h3>play {currentDeck.metadata.name}</h3>
       {getCurrentQuestion(currentDeck.currentIndex)}
       <br/>
-      <Button onClick={previousQuestion}>Previous</Button>
+      <Button onClick={previousQuestion} stlye={{padding: "50 vw"}}>Previous</Button>
       <Button onClick={nextQuestion}>Next</Button> 
     </>
   )
