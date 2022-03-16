@@ -6,13 +6,6 @@ import { Form, Button, Card, Alert, Container} from "react-bootstrap"
 export default function PlayDeck() {  
   const [currentDeck, setCurrentDeck] = useState({currentIndex: 0, metadata:{}, cards: {}, cardList: []})
   const { id } = useParams();
-  const { currentUser } = useAuth()
-  
-  // var userRef = database.ref('users/' + currentUser.uid)
-
-  // // if (database.ref(`users/${currentUser.uid}/`))
-  // // database.ref(`users/${currentUser}`).push({'currentIndex': 0})
-  // // const currentDeck.currentIndex = database.ref(`users/${currentUser.uid}/currentIndex`).child('currentIndex') 
   
   var deckId = id
   var deckRef = database.ref('decks/' + deckId);
