@@ -74,6 +74,7 @@ export default function PlayDeck() {
     console.log(currentNow.showAnswer)
     console.log(currentDeck.cardList[currentDeck.currentIndex].question)
     if (currentDeck.cardList && currentDeck.cardList.length > currentDeck.currentIndex && currentDeck.showAnswer === true){
+      console.log(currentDeck.cardList[currentDeck.currentIndex].answer)
       return currentDeck.cardList[currentDeck.currentIndex].answer
     }
     return "sssdfdfgsjdlgsrgvhserld"
