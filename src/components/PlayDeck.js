@@ -1,10 +1,9 @@
-import React, { useRef, useState, useEffect } from "react"
+import React, { useState, useEffect } from "react"
 import { database } from "../firebase"
 import { Link, useParams } from "react-router-dom"
-import { useAuth } from "../contexts/AuthContext"
-import { Form, Button, Card, Alert, Container} from "react-bootstrap"
+import { Button } from "react-bootstrap"
 export default function PlayDeck() {  
-  const [currentDeck, setCurrentDeck] = useState({currentIndex: 0, metadata:{}, cards: {}, cardList: []})
+  const [currentDeck, setCurrentDeck] = useState({currentIndex: 0, metadata:{}, cards: {}, cardList: [], showAnswer: false})
   const { id } = useParams();
 
   var deckId = id
@@ -12,6 +11,7 @@ export default function PlayDeck() {
   useEffect(() => {
     deckRef.on('value', snapshot => {
       let d = snapshot.val()
+      d.showAnswer = false
       if (d.metadata === undefined) {
         d.metadata = {}
       }
@@ -30,7 +30,7 @@ export default function PlayDeck() {
       setCurrentDeck(d)
     });
     }, [])  
-  function getCurrentQuestion() {
+  function getCurrentQuestion() {    
     if (currentDeck.cardList && currentDeck.cardList.length > currentDeck.currentIndex) {
       return currentDeck.cardList[currentDeck.currentIndex].question
     }
@@ -48,6 +48,7 @@ export default function PlayDeck() {
       current.cardList = currentDeck.cardList
       current.metadata = currentDeck.metadata
       current.cards = currentDeck.cards
+      current.showAnswer = false
       setCurrentDeck(current)
     }
   }
@@ -58,39 +59,36 @@ export default function PlayDeck() {
       current.cardList = currentDeck.cardList
       current.metadata = currentDeck.metadata
       current.cards = currentDeck.cards
+      current.showAnswer = false
       setCurrentDeck(current)
     }
   }
-  // function simulateNetworkRequest() {
-  //   return new Promise((resolve) => setTimeout(resolve, 2000));
-  // }
-  // function LoadingButton() {
-  //     const [isLoading, setLoading] = useState(false);
-  //     useEffect(() => {
-  //       if (isLoading) {
-  //         simulateNetworkRequest().then(() => {
-  //           setLoading(false);
-  //         });
-  //       }
-  //     }, [isLoading]);
-  //   const handleClick = () => setLoading(true);
-  //   return (
-  //     <Button
-  //     variant="primary"
-  //     disabled={isLoading}
-  //     onClick={!isLoading ? handleClick : null}
-  //     >
-  //       {isLoading ? 'Loading…' : 'Click to load'}
-  //     </Button>
-  //   )
-  // }
+  function showIt() {
+    let currentNow = {}
+    currentNow.currentIndex = currentDeck.currentIndex 
+    currentNow.cardList = currentDeck.cardList
+    currentNow.metadata = currentDeck.metadata
+    currentNow.cards = currentDeck.cards
+    currentNow.showAnswer = true
+    setCurrentDeck(currentNow)
+    console.log(currentNow.showAnswer)
+    console.log(currentDeck.cardList[currentDeck.currentIndex].question)
+    if (currentDeck.cardList && currentDeck.cardList.length > currentDeck.currentIndex && currentDeck.showAnswer === true){
+      return currentDeck.cardList[currentDeck.currentIndex].answer
+    }
+    return "sssdfdfgsjdlgsrgvhserld"
+    
+  }
   return (
     <>
       <h3>play {currentDeck.metadata.name}</h3>
       {getCurrentQuestion(currentDeck.currentIndex)}
       <br/>
-      <Button onClick={previousQuestion} stlye={{padding: "50 vw"}}>Previous</Button>
-      <Button onClick={nextQuestion}>Next</Button> 
+      <Button onClick={previousQuestion}>Previous</Button>
+      <br />
+      <Button onClick={nextQuestion}>Next</Button>
+      <br />
+      <Button onClick={showIt}>Show Answer</Button>
     </>
   )
 }

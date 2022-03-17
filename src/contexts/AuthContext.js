@@ -40,7 +40,6 @@ export function AuthProvider({ children }) {
   }
 
   function updateUsername(username) {
-    console.log('zoe')
     currentUser.databaseRecord.username = username   
     database.ref('users/' + currentUser.uid + '/username').set(username)
   }
@@ -48,9 +47,7 @@ export function AuthProvider({ children }) {
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged(user => {
       if (user && !user.databaseRecord) {
-        console.log('mom')
         user.databaseRecord = {}
-        console.log('dad')
       }
       setCurrentUser(user)
       if (user) {
