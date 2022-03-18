@@ -32,6 +32,9 @@ export default function PlayDeck() {
     }, [])  
   function getCurrentQuestion() {    
     if (currentDeck.cardList && currentDeck.cardList.length > currentDeck.currentIndex) {
+      if (currentDeck.showAnswer) {
+        return currentDeck.cardList[currentDeck.currentIndex].answer
+      }
       return currentDeck.cardList[currentDeck.currentIndex].question
     }
     return (
@@ -69,17 +72,19 @@ export default function PlayDeck() {
     currentNow.cardList = currentDeck.cardList
     currentNow.metadata = currentDeck.metadata
     currentNow.cards = currentDeck.cards
-    currentNow.showAnswer = true
+    currentNow.showAnswer = !currentDeck.showAnswer
     setCurrentDeck(currentNow)
-    console.log(currentNow.showAnswer)
-    console.log(currentDeck.cardList[currentDeck.currentIndex].question)
-    if (currentDeck.cardList && currentDeck.cardList.length > currentDeck.currentIndex && currentDeck.showAnswer === true){
-      console.log(currentDeck.cardList[currentDeck.currentIndex].answer)
-      return currentDeck.cardList[currentDeck.currentIndex].answer
+    if (currentNow.cardList && currentNow.cardList.length > currentNow.currentIndex){
+      console.log(currentNow.cardList[currentNow.currentIndex].answer)
+      return currentNow.cardList[currentNow.currentIndex].answer
     }
-    return "sssdfdfgsjdlgsrgvhserld"
-    
+    return "sssdfdfgsjdlgsrgvhserld"    
   }
+  function thirdButton(){
+    var display = currentDeck.showAnswer ? "Show Question" : "Show Answer"
+    return display
+  }
+
   return (
     <>
       <h3>play {currentDeck.metadata.name}</h3>
@@ -89,7 +94,9 @@ export default function PlayDeck() {
       <br />
       <Button onClick={nextQuestion}>Next</Button>
       <br />
-      <Button onClick={showIt}>Show Answer</Button>
+      <Button onClick={showIt}>{thirdButton()}</Button>
+      <br />
+      <Link to={location => `/deck/edit/${deckId}`} className="btn btn-primary">Back to deck page</Link>
     </>
   )
 }
