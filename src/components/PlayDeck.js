@@ -30,7 +30,7 @@ export default function PlayDeck() {
       setCurrentDeck(d)
     });
     }, [])  
-  function getCurrentQuestion() {    
+  function getCurrentQuestionAnswer() {    
     if (currentDeck.cardList && currentDeck.cardList.length > currentDeck.currentIndex) {
       if (currentDeck.showAnswer) {
         return currentDeck.cardList[currentDeck.currentIndex].answer
@@ -75,7 +75,6 @@ export default function PlayDeck() {
     currentNow.showAnswer = !currentDeck.showAnswer
     setCurrentDeck(currentNow)
     if (currentNow.cardList && currentNow.cardList.length > currentNow.currentIndex){
-      console.log(currentNow.cardList[currentNow.currentIndex].answer)
       return currentNow.cardList[currentNow.currentIndex].answer
     }
     return "sssdfdfgsjdlgsrgvhserld"    
@@ -88,7 +87,7 @@ export default function PlayDeck() {
   return (
     <>
       <h3>play {currentDeck.metadata.name}</h3>
-      {getCurrentQuestion(currentDeck.currentIndex)}
+      {getCurrentQuestionAnswer(currentDeck.currentIndex)}
       <br/>
       <Button onClick={previousQuestion}>Previous</Button>
       <br />

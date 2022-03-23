@@ -1,13 +1,16 @@
 import React, { useRef, useState, useEffect } from "react"
 import { Form, Button, Card, Alert, Container} from "react-bootstrap"
 import { database } from "../firebase"
+import { useAuth } from "../contexts/AuthContext"
 import { Link, useParams } from "react-router-dom"
 
 export default function DeckEdit() {
+  const { currentUser } = useAuth()
   const deckNameRef = useRef()
   const deckDescriptionRef = useRef()
   const deckQuestionRef = useRef()
   const deckAnswerRef = useRef()
+  const deckPrivacyRef = useRef()
   const [error] = useState("")
   const [currentDeck, setCurrentDeck] = useState({metadata:{}, cards: {}})
   const { id } = useParams();
@@ -28,10 +31,9 @@ export default function DeckEdit() {
     });
     }, [])  
 
-
   function updateMetadata(e) {
     e.preventDefault()
-    database.ref('decks/' + deckId +  '/metadata').set({name: deckNameRef.current.value, description: deckDescriptionRef.current.value})
+    database.ref('decks/' + deckId +  '/metadata').set({name: deckNameRef.current.value, description: deckDescriptionRef.current.value, public: deckPrivacyRef.current.value})
   }
 
   function addCard(e) {
@@ -60,6 +62,14 @@ export default function DeckEdit() {
     );
   }
 
+  if (currentUser.uid !== currentDeck.uid) {
+    console.log(deckPrivacyRef)
+    if (database.ref('users/' + currentUser.uid + '/admin').val !== "on") {
+      if (database.ref('users/' + currentUser.uid + '/admin').val !== "true") {
+        return (<><h1>Cannot prove your right to be here</h1></>)
+      }
+    }
+  }
   return (
     <>
     <Container
@@ -89,6 +99,17 @@ export default function DeckEdit() {
                 defaultValue={currentDeck.metadata.description}
               />
             </Form.Group>
+              <Form.Group>
+                <Form.Check 
+                  type={"radio", "checkbox"}
+                  id="public-check"
+                  label="Public?"
+                  ref={deckPrivacyRef}
+                />
+                <h6>Temporary Sign Till Devs Come back: Making a <br/>
+                this deck public is only reversible with admin support, even if <br/>
+                you turn the check off.</h6>
+              </Form.Group>
             <Button className="w-100" type="submit">
               Update
             </Button>
