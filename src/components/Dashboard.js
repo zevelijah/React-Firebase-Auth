@@ -2,6 +2,7 @@ import React, { useState } from "react"
 import { Card, Button, Alert } from "react-bootstrap"
 import { useAuth } from "../contexts/AuthContext"
 import { Link, useHistory } from "react-router-dom"
+import { database } from "../firebase"
 
 export default function Dashboard() {
   const [error, setError] = useState("")
@@ -21,7 +22,7 @@ export default function Dashboard() {
 
   return (
     <>  
-      <link rel="stylesheet" href="code/React-Firebase-Auth/Css-Stlyheets/dasboard.css" />
+      <link rel="stylesheet" href="code/React-Firebase-Auth/cssStlyheets/dasboard.css" />
       <div id="header">
         <div id="title">
           <h1 id="title-content">Flash Cards Galore<br/>(Localhost Test)</h1> 
@@ -31,6 +32,9 @@ export default function Dashboard() {
             <h2 className="text-center mb-4">Profile</h2>
             {error && <Alert variant="danger">{error}</Alert>}
             <strong>Email:</strong> {currentUser.email}
+            <Link to="/deck/new" className="btn btn-primary w-100 mt-3">
+              Make Deck
+            </Link>
             <Link to="/update-profile" className="btn btn-primary w-100 mt-3">
               Update Profile
             </Link>
