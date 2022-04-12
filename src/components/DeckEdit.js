@@ -43,9 +43,12 @@ export default function DeckEdit() {
     deckAnswerRef.current.value = ""
   }
 
+  // function deleteCard(card) {
+  //   database.ref('decks/' + deckId +  '/cards/').remove()  
+  // }
   function CardList(props) {
     const listItems = Object.keys(props.cards).map((key, index) => 
-      <tr><td>{props.cards[key].question}</td><td>{props.cards[key].answer}</td></tr>
+      <tr><td>{props.cards[key].question}</td><td>{props.cards[key].answer}</td>{/*<td><Button onClick={deleteCard}>Delete</Button></td>*/}</tr>
     );
     return (
       <table>
@@ -63,8 +66,7 @@ export default function DeckEdit() {
   }
 
   if (currentUser.uid !== currentDeck.uid) {
-    console.log(deckPrivacyRef)
-    if (database.ref('users/' + currentUser.uid + '/admin').val !== "on") {
+    if (database.ref('decks/' + deckId +  '/metadata/public').val !== "on") {
       if (database.ref('users/' + currentUser.uid + '/admin').val !== "true") {
         return (<><h1>Cannot prove your right to be here</h1></>)
       }
