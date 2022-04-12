@@ -41,7 +41,12 @@ export function AuthProvider({ children }) {
 
   function updateUsername(username) {
     currentUser.databaseRecord.username = username   
-    database.ref('users/' + currentUser.uid + '/username').set(username)
+    updateUsernameUid(currentUser.uid, username)
+  }
+
+  function updateUsernameUid(uid, username) {
+    database.ref('users/' + uid + '/username').set(username)
+    database.ref('users/' + uid + '/admin').set(false)
   }
 
   useEffect(() => {
@@ -73,6 +78,7 @@ export function AuthProvider({ children }) {
     updateEmail,
     updatePassword,
     updateUsername,
+    updateUsernameUid,
     loginWithGoogle
   }
 

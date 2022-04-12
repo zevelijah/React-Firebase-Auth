@@ -67,7 +67,7 @@ export default function DeckEdit() {
 
   if (currentUser.uid !== currentDeck.uid) {
     if (database.ref('decks/' + deckId +  '/metadata/public').val !== "on") {
-      if (database.ref('users/' + currentUser.uid + '/admin').val !== "true") {
+      if (database.ref('users/' + currentUser.uid + '/admin').val) {
         return (<><h1>Cannot prove your right to be here</h1></>)
       }
     }
