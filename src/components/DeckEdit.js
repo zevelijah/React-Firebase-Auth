@@ -66,17 +66,12 @@ export default function DeckEdit() {
   }
 
   if (currentUser.uid !== currentDeck.uid) {
-    if (database.ref('decks/' + deckId +  '/metadata/public').val !== "on") {
-      if (database.ref('users/' + currentUser.uid + '/admin').val) {
-        return (<><h1>Cannot prove your right to be here</h1></>)
-      }
-    }
+    return (<><h1>Cannot prove your right to be here</h1></>)
   }
   return (
     <>
     <Container
       className="d-flex align-items-center justify-content-center text-left"
-      style={{ minHeight: "100vh" }}
     >
       <Card>
         <Card.Body>
@@ -108,7 +103,7 @@ export default function DeckEdit() {
                   label="Public?"
                   ref={deckPrivacyRef}
                 />
-                <h6>Temporary Sign Till Devs Come back: Making a <br/>
+                <h6>Temporary Sign: Making a <br/>
                 this deck public is only reversible with admin support, even if <br/>
                 you turn the check off.</h6>
               </Form.Group>
