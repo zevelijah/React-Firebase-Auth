@@ -2,8 +2,11 @@ import React, { useState, useEffect } from "react"
 import { database } from "../firebase"
 import { Link, useParams } from "react-router-dom"
 import { Button } from "react-bootstrap"
+import { useAuth } from "../contexts/AuthContext"
+
 export default function PlayDeck() {  
   const [currentDeck, setCurrentDeck] = useState({currentIndex: 0, metadata:{}, cards: {}, cardList: [], showAnswer: false})
+  const { currentUser } = useAuth()
   const { id } = useParams();
 
   var deckId = id
@@ -83,7 +86,9 @@ export default function PlayDeck() {
     var display = currentDeck.showAnswer ? "Show Question" : "Show Answer"
     return display
   }
-
+  if (currentUser.uid !== currentDeck.uid) {
+    return (<><h1>Cannot prove your right to be here</h1></>)
+  }
   return (
     <>
       <h3>play {currentDeck.metadata.name}</h3>
