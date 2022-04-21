@@ -1,3 +1,11 @@
+## Purpose of this fork(for webDevSimplyfied):
+
+As you released your project, on a youtube video, in public, I belive I am fully within my right to manipulate it to my own ends. If that makes me a script kitty,<br />
+so be it. If you protest against this use of your work, you may contact me with such overtures. Otherwise, I will use this to make a flash card website.<br />
+Good Day Sir. 
+
+## webDevSimplified's work:
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
