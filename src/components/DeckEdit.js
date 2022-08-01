@@ -46,6 +46,7 @@ export default function DeckEdit() {
   // function deleteCard(card) {
   //   database.ref('decks/' + deckId +  '/cards/').remove()  
   // }
+  // Fix this while your at it
   function CardList(props) {
     const listItems = Object.keys(props.cards).map((key, index) => 
       <tr><td>{props.cards[key].question}</td><td>{props.cards[key].answer}</td>{/*<td><Button onClick={deleteCard}>Delete</Button></td>*/}</tr>

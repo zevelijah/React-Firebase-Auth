@@ -6,7 +6,7 @@ import { useAuth } from "../contexts/AuthContext"
 
 export default function PlayDeck() {  
   const [currentDeck, setCurrentDeck] = useState({currentIndex: 0, metadata:{}, cards: {}, cardList: [], showAnswer: false})
-  const { currentUser } = useAuth()
+  // const { currentUser } = useAuth()
   const { id } = useParams();
 
   var deckId = id
@@ -86,9 +86,10 @@ export default function PlayDeck() {
     var display = currentDeck.showAnswer ? "Show Question" : "Show Answer"
     return display
   }
-  if (currentUser.uid !== currentDeck.uid) {
+  /*if (currentUser.uid !== currentDeck.uid) {
     return (<><h1>Cannot prove your right to be here</h1></>)
-  }
+  }*/
+  /*This code breaks Play deck: figure out why, fix that, then merge back to master*/
   return (
     <>
       <h3>play {currentDeck.metadata.name}</h3>

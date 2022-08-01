@@ -11,6 +11,8 @@ import DeckEdit from "./DeckEdit"
 import DeckNew from "./DeckNew"
 import Help from "./Help"
 import PlayDeck from "./PlayDeck"
+import PrivateLibrary from "./PrivateLibrary"
+import PublicLibrary from "./PublicLibrary"
 
 function App() {
   return (
@@ -26,6 +28,8 @@ function App() {
           <Route path="/signup" component={Signup} />
           <Route path="/login" component={Login} />
           <Route path="/forgot-password" component={ForgotPassword} />
+          <Route path="/your-decks" component={PrivateLibrary} />
+          <Route path="/public-decks" component={PublicLibrary} />
         </Switch>
       </AuthProvider>
     </Router>
