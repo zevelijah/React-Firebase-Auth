@@ -65,9 +65,12 @@ export default function DeckEdit() {
       </table>
     );
   }
-
-  if (currentUser.uid !== currentDeck.uid) {
-    return (<><h1>Cannot prove your right to be here</h1></>)
+  if (currentDeck.public !== "on") {
+    if (currentUser.databaseRecord.admin !== "true") {
+      if (currentUser.uid !== currentDeck.uid) {
+        return (<><h1>Cannot prove your right to be here</h1></>)
+      }
+    }
   }
   return (
     <>

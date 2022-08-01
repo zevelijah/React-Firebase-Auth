@@ -55,6 +55,7 @@ export default function PlayDeck() {
       current.metadata = currentDeck.metadata
       current.cards = currentDeck.cards
       current.showAnswer = false
+      current.changedIndex = true
       setCurrentDeck(current)
     }
   }
@@ -66,6 +67,7 @@ export default function PlayDeck() {
       current.metadata = currentDeck.metadata
       current.cards = currentDeck.cards
       current.showAnswer = false
+      current.changedIndex = true
       setCurrentDeck(current)
     }
   }
@@ -87,10 +89,14 @@ export default function PlayDeck() {
     return display
   }
   if (currentDeck.changedIndex === false) {
-    if (currentUser.uid !== currentDeck.uid) {
-      return (<><h1>Cannot prove your right to be here</h1></>)
+    if (currentDeck.public !== "on") {
+      if (currentUser.databaseRecord.admin !== "true") {
+        if (currentUser.uid !== currentDeck.uid) {
+          return (<><h1>Cannot prove your right to be here</h1></>)
+        }
+      } 
+    }
   }
-}
 /*This code breaks Play deck: figure out why, fix that, then merge back to master*/
   return (
     <>
