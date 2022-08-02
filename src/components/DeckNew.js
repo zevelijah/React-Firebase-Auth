@@ -14,5 +14,5 @@ export default function DeckEdit() {
   let deckRef = database.ref('decks/').push({uid: currentUser.uid})
   let deckId = deckRef.key
   history.replace(`/deck/edit/${deckId}`)
-  return (<></>)
+  return (<><h1>Creating Deck...</h1></>)
 }
