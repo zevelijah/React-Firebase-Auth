@@ -1,5 +1,9 @@
 #title {
     float: left;
     margin-left: 0;
-    width: 48px;
+    width: 60vw;
+}
+#prof {
+    float: right;
+    width: 60vw;
 }

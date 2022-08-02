@@ -88,16 +88,16 @@ export default function PlayDeck() {
     var display = currentDeck.showAnswer ? "Show Question" : "Show Answer"
     return display
   }
-  if (currentDeck.changedIndex === false) {
-    if (currentDeck.public !== "on") {
-      if (currentUser.databaseRecord.admin !== "true") {
+  // if (currentDeck.changedIndex === false) {
+  //   if (currentDeck.public !== "on") {
+  //     if (currentUser.databaseRecord.admin !== "true") {
         if (currentUser.uid !== currentDeck.uid) {
           return (<><h1>Cannot prove your right to be here</h1></>)
         }
-      } 
-    }
-  }
-/*This code breaks Play deck: figure out why, fix that, then merge back to master*/
+  //     } 
+  //   }
+  // }
+  // now it breaks becuase of a secound user seeing it
   return (
     <>
       <h3>play {currentDeck.metadata.name}</h3>

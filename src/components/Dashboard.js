@@ -25,7 +25,7 @@ export default function Dashboard() {
       <link rel="stylesheet" href="code/React-Firebase-Auth/cssStlyheets/dasboard.css" />
       <div id="header">
         <div id="title">
-          <h1 id="title-content">Flash Cards Galore<br/>(Localhost alpha)</h1> 
+          <h1 id="title-content">Flash Cards Galore (pre-alpha: 0.0.2)</h1> 
         </div>
         <Card id="prof" style={{ width: "60vw" }, {float: "right"}}>
           <Card.Body>
