@@ -88,15 +88,15 @@ export default function PlayDeck() {
     var display = currentDeck.showAnswer ? "Show Question" : "Show Answer"
     return display
   }
-  // if (currentDeck.changedIndex === false) {
-  //   if (currentDeck.public !== "on") {
-  //     if (currentUser.databaseRecord.admin !== "true") {
+  if (currentDeck.changedIndex === false) {
+    if (currentDeck.public !== "on") {
+      if (currentUser.databaseRecord.admin !== "true") {
         if (currentUser.uid !== currentDeck.uid) {
           return (<><h1>Cannot prove your right to be here</h1></>)
         }
-  //     } 
-  //   }
-  // }
+      } 
+    }
+  }
   // now it breaks becuase of a secound user seeing it
   return (
     <>
