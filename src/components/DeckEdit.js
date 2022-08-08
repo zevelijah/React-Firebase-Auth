@@ -67,9 +67,9 @@ export default function DeckEdit() {
   }
   // if (currentDeck.metadata.public !== "on") {
   //   if (currentUser.databaseRecord.admin !== "true") {
-      if (currentUser.uid !== currentDeck.uid) {
-        return (<><h1>Cannot prove your right to be here</h1></>)
-      }
+      // if (currentUser.uid !== currentDeck.uid) {
+      //   return (<><h1>Cannot prove your right to be here</h1></>)
+      // }
   //   }
   // }
   return (
