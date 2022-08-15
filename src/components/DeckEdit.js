@@ -19,7 +19,9 @@ export default function DeckEdit() {
   var deckId = id
   var deckRef = database.ref('decks/' + deckId);
   useEffect(() => {
+    console.log("useEffect")
     deckRef.on('value', snapshot => {
+      console.log("on")
       let d = snapshot.val()
       if (d.metadata === undefined) {
         d.metadata = {}
@@ -28,6 +30,7 @@ export default function DeckEdit() {
         d.cards = {}
       }
       setCurrentDeck(d)
+      console.log(currentDeck)
     });
     }, [])  
 
@@ -65,7 +68,9 @@ export default function DeckEdit() {
       </table>
     );
   }
+  console.log(currentDeck.metadata.public)
   if (currentDeck.metadata.public !== "on") {
+    console.log("not public")
     if (currentUser.databaseRecord.admin !== "true") {
       if (currentUser.uid !== currentDeck.uid) {
         return (<><h1>Cannot prove your right to be here</h1></>)
