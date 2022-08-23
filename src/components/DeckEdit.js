@@ -111,6 +111,7 @@ export default function DeckEdit() {
                   id="public-check"
                   label="Public?"
                   ref={deckPrivacyRef}
+                  defaultValue={currentDeck.metadata.public}
                 />
                 <h6>Temporary Sign: Making a <br/>
                 this deck public is only reversible with admin support, even if <br/>
