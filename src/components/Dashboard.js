@@ -2,7 +2,6 @@ import React, { useState } from "react"
 import { Card, Button, Alert } from "react-bootstrap"
 import { useAuth } from "../contexts/AuthContext"
 import { Link, useHistory } from "react-router-dom"
-import { database } from "../firebase"
 
 export default function Dashboard() {
   const [error, setError] = useState("")
@@ -45,6 +44,14 @@ export default function Dashboard() {
             </Button>
           </div>
         </Card>
+      </div>
+      <div id='other-stuff'>
+        <Link to='/public-decks' className="btn btn-primary w-100 mt-3" style={{width: "50vw"}, {float: "left"}}>
+          Public Decks
+        </Link>
+        <Link to='/your-decks' className="btn btn-primary w-100 mt-3" style={{width: "50vw"}, {float: "left"}}>
+          Your Decks
+        </Link>
       </div>
     </>
   )

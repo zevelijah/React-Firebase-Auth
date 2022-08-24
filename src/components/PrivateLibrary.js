@@ -1,35 +1,43 @@
-import React, { useRef, useState, useEffect } from "react"
-// import { Form, Button, Card, Alert, Container} from "react-bootstrap"
-// import { database } from "../firebase"
-// import { useAuth } from "../contexts/AuthContext"
-// import { Link, useParams } from "react-router-dom"
+import { database } from "../firebase"
+import React, { useState, useEffect} from "react"
+import { Link } from "react-router-dom"
+import { useAuth } from "../contexts/AuthContext"
 
-export default function PrivateLibrary() {
-  // const { currentUser } = useAuth()
-  // const deckNameRef = useRef()
-  // const deckDescriptionRef = useRef()
-  // const deckPrivacyRef = useRef()
-  // const [error] = useState("")
-  // const [deckList, setDeckList] = useState({list: []})
-  // // const { id } = useParams();
-
-
-  // // var deckId = id
-  // var allRef = database.ref('decks/');
-  // useEffect(() => {
-  //   allRef.on('value', snapshot => {
-  //     let d = snapshot.val()
-  //     if (d === undefined) {
-  //       d = {}
-  //     }
-  //     setDeckList(d)
-  //   });
-  //   }, [])
-  // let a = []
-
+export default function PublicLibrary() {
+  const { currentUser } = useAuth()
+  const [currentList, setCurrentList] = useState({deckList:{}})
+  
+  var allRef = database.ref('decks/')
+  
+  useEffect(() => {
+    console.log("useEffect")
+    allRef.on('value', snapshot => {
+      console.log("on")
+      let d = snapshot.val()
+      for (const thing in d){
+        if (currentUser.uid !== d[thing].uid){
+          delete d[thing]
+        }
+      }
+      setCurrentList(d)
+      console.log(currentList)
+    });
+    }, [])  
+    function deckList(props){
+      const listItems = Object.keys(props.decks).map((key, index) => 
+       <tr><td>{props.decks[key].metadata.name}</td><td><Link to={location => `/deck/edit/${key}`} className="btn btn-primary w-100 mt-3">Deck Page</Link></td></tr> 
+      )
+    return(
+      <table>
+        <tbody>
+        {listItems}
+        </tbody>
+      </table>      
+    );
+    }
   return(
     <>
-      How do I move forward?
+      <deckList decks={currentList}></deckList>
     </>
   )
 }
