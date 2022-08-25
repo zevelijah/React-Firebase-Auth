@@ -8,7 +8,7 @@ export default function PublicLibrary() {
   const [currentList, setCurrentList] = useState({deckList:{}})
   
   var allRef = database.ref('decks/')
-  
+  console.log("this is a different branch")
   useEffect(() => {
     console.log("useEffect")
     allRef.on('value', snapshot => {
