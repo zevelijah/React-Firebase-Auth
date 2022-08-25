@@ -17,7 +17,7 @@ export default function DeckEdit() {
 
 
   var deckId = id
-  var deckRef = database.ref('decks/' + deckId);
+  var deckRef = database.ref('decks/decksWrapper/' + deckId);
   useEffect(() => {
     console.log("useEffect")
     deckRef.on('value', snapshot => {

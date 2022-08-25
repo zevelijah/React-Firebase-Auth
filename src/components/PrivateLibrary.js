@@ -5,7 +5,7 @@ import { useAuth } from "../contexts/AuthContext"
 
 export default function PublicLibrary() {
   const { currentUser } = useAuth()
-  const [currentList, setCurrentList] = useState({deckList:{}})
+  const [currentList, setCurrentList] = useState({decksWrapper:{}})
   
   var allRef = database.ref('decks/')
   console.log("this is a different branch")
@@ -15,8 +15,8 @@ export default function PublicLibrary() {
       console.log("on")
       let d = snapshot.val()
       for (const thing in d){
-        if (currentUser.uid !== d[thing].uid){
-          delete d[thing]
+        if (currentUser.uid !== d.decksWrapper[thing].uid){
+          delete d.decksWrapper[thing]
         }
       }
       setCurrentList(d)

@@ -11,7 +11,7 @@ export default function DeckEdit() {
   if (currentUser === null) {
     return (<></>)
   }
-  let deckRef = database.ref('decks/').push({uid: currentUser.uid})
+  let deckRef = database.ref('decks/decksWrapper/').push({uid: currentUser.uid})
   let deckId = deckRef.key
   history.replace(`/deck/edit/${deckId}`)
   return (<><h1>Creating Deck...</h1></>)

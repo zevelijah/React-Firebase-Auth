@@ -3,7 +3,7 @@ import React, { useState, useEffect} from "react"
 import { Link } from "react-router-dom"
 
 export default function PublicLibrary() {
-  const [currentList, setCurrentList] = useState({deckList:{}})
+  const [currentList, setCurrentList] = useState({decksWrapper:{}})
   
   var allRef = database.ref('decks/')
   console.log("this is a different branch")
@@ -13,8 +13,8 @@ export default function PublicLibrary() {
       console.log("on")
       let d = snapshot.val()
       for (const thing in d){
-        if (d[thing].metadata.public !== 'on' || d[thing].metadata.public === undefined){
-          delete d[thing]
+        if (d.decksWrapper[thing].metadata.public !== 'on' || d.decksWrapper[thing].metadata.public === undefined){
+          delete d.decksWrapper[thing]
         }
       }
       setCurrentList(d)

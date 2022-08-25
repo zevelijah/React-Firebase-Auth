@@ -10,7 +10,7 @@ export default function PlayDeck() {
   const { id } = useParams();
 
   var deckId = id
-  var deckRef = database.ref('decks/' + deckId);
+  var deckRef = database.ref('decks/decksWrapper/' + deckId);
   useEffect(() => {
     deckRef.on('value', snapshot => {
       let d = snapshot.val()

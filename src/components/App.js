@@ -28,7 +28,7 @@ function App() {
           <Route path="/signup" component={Signup} />
           <Route path="/login" component={Login} />
           <Route path="/forgot-password" component={ForgotPassword} />
-          <Route path="/your-decks" component={PrivateLibrary} />
+          <PrivateRoute path="/your-decks" component={PrivateLibrary} />
           <Route path="/public-decks" component={PublicLibrary} />
         </Switch>
       </AuthProvider>
