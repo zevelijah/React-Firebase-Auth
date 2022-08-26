@@ -21,7 +21,7 @@ export default function PublicLibrary() {
       console.log(currentList)
     });
     }, [])  
-    function deckList(props){
+    function DeckList(props){
       const listItems = Object.keys(props.decks).map((key, index) => 
        <tr><td>{props.decks[key].metadata.name}</td><td><Link to={location => `/deck/edit/${key}`} className="btn btn-primary w-100 mt-3">Deck Page</Link></td></tr> 
       )
@@ -35,7 +35,7 @@ export default function PublicLibrary() {
     }
   return(
     <>
-      <deckList decks={currentList}></deckList>
+      <DeckList decks={currentList}></DeckList>
     </>
   )
 }
