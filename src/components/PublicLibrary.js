@@ -12,11 +12,11 @@ export default function PublicLibrary() {
     allRef.on('value', snapshot => {
       console.log("on")
       let d = snapshot.val()
-      // for (const thing in d){
-      //   if (d[thing].metadata.public === undefined || d[thing].metadata.public === 'on'){
-      //     delete d[thing]
-      //   }
-      // }
+      for (const thing in d){
+       if (d[thing].metadata.public === undefined || d[thing].metadata.public !== 'on'){
+         delete d[thing]
+       }
+      }
       setCurrentList(d)
       console.log(currentList)
     });
