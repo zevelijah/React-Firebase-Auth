@@ -5,7 +5,7 @@ import { useAuth } from "../contexts/AuthContext"
 
 export default function PublicLibrary() {
   const { currentUser } = useAuth()
-  const [currentList, setCurrentList] = useState({deckList:{}})
+  const [currentList, setCurrentList] = useState({})
   
   var allRef = database.ref('decks/')
   
@@ -23,9 +23,9 @@ export default function PublicLibrary() {
       console.log(currentList)
     });
     }, [])  
-    function deckList(props){
-      const listItems = Object.keys(props.decks).map((key, index) => 
-       <tr><td>{props.decks[key].metadata.name}</td><td><Link to={location => `/deck/edit/${key}`} className="btn btn-primary w-100 mt-3">Deck Page</Link></td></tr> 
+    function DeckList(props){
+      const listItems = Object.keys(props.deckList).map((key, index) => 
+       <tr><td>{props.deckList[key].metadata.name}</td><td><Link to={location => `/deck/edit/${key}`} className="btn btn-primary w-100 mt-3">Deck Page</Link></td></tr> 
       )
     return(
       <table>
@@ -37,7 +37,7 @@ export default function PublicLibrary() {
     }
   return(
     <>
-      <deckList decks={currentList}></deckList>
+      <DeckList deckList={currentList}></DeckList>
     </>
   )
 }
