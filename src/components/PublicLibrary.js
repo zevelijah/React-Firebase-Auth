@@ -3,27 +3,27 @@ import React, { useState, useEffect} from "react"
 import { Link } from "react-router-dom"
 
 export default function PublicLibrary() {
-  const [currentList, setCurrentList] = useState({deckList:{}})
+  const [currentList, setCurrentList] = useState({})
   
-  var allRef = database.ref('decks/')
+  var allRef = database.ref('decks')
   
   useEffect(() => {
     console.log("useEffect")
     allRef.on('value', snapshot => {
       console.log("on")
       let d = snapshot.val()
-      for (const thing in d){
-        if (d[thing].metadata.public !== 'on' || d[thing].metadata.public === undefined){
-          delete d[thing]
-        }
-      }
+      // for (const thing in d){
+      //   if (d[thing].metadata.public === undefined || d[thing].metadata.public === 'on'){
+      //     delete d[thing]
+      //   }
+      // }
       setCurrentList(d)
       console.log(currentList)
     });
     }, [])  
     function DeckList(props){
-      const listItems = Object.keys(props.decks).map((key, index) => 
-       <tr><td>{props.decks[key].metadata.name}</td><td><Link to={location => `/deck/edit/${key}`} className="btn btn-primary w-100 mt-3">Deck Page</Link></td></tr> 
+      const listItems = Object.keys(props.deckList).map((key, index) => 
+       <tr><td>{props.deckList[key].metadata.name}</td><td><Link to={location => `/deck/edit/${key}`} className="btn btn-primary w-100 mt-3">Deck Page</Link></td></tr> 
       )
     return(
       <table>
@@ -35,7 +35,7 @@ export default function PublicLibrary() {
     }
   return(
     <>
-      <DeckList decks={currentList}></DeckList>
+      <DeckList deckList={currentList}></DeckList>
     </>
   )
 }
