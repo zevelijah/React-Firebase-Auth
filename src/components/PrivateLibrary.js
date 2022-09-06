@@ -7,25 +7,25 @@ export default function PublicLibrary() {
   const { currentUser } = useAuth()
   const [currentList, setCurrentList] = useState({})
   
-  var allRef = database.ref('decks/')
+  var allRef = database.ref('users/' + currentUser.uid + '/creations')
   
   useEffect(() => {
     console.log("useEffect")
     allRef.on('value', snapshot => {
       console.log("on")
       let d = snapshot.val()
-      for (const thing in d){
-        if (currentUser.uid !== d[thing].uid){
-          delete d[thing]
-        }
-      }
+      // for (const thing in d){
+      //   if (currentUser.uid !== d[thing].uid){
+      //     delete d[thing]
+      //   }
+      // }
       setCurrentList(d)
       console.log(currentList)
     });
     }, [])  
     function DeckList(props){
       const listItems = Object.keys(props.deckList).map((key, index) => 
-       <tr><td>{props.deckList[key].metadata.name}</td><td><Link to={location => `/deck/edit/${key}`} className="btn btn-primary w-100 mt-3">Deck Page</Link></td></tr> 
+       <tr><td>{props.deckList[key].realId}</td><td><Link to={location => `/deck/edit/${props.deckList[key].realId}`} className="btn btn-primary w-100 mt-3">Deck Page</Link></td></tr> 
       )
     return(
       <table>

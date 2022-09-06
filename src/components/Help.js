@@ -30,7 +30,7 @@ export default function Help() {
                 <h3>Contact Us for further Questions?</h3>
                 <p>I'll make a hotline later, but it's low on my list of prioritys.</p>
                 <hr/>
-                <h2>Why this website's so awful...</h2>
+                <h2>Why this website's so primitive...</h2>
                 <p>If you are read this, then I guess I've done something right. This was a homeschool project of mine. The github page for it is 
                     nested inside of an unrealted project I was using to build my Authentication (don't worry, he did it for educational 
                     puposes on youtube, so I'm allowed to suposedly). Like so many of my projects, I abadoned it for months without the care to even get rid
@@ -43,7 +43,7 @@ export default function Help() {
                     You know that other website I mentioned? It was a cute little staic website, designed for very specific group of people that it turns out, I didn't know any of.
                     It was (<a href="https://diplomacy-helper.web.app/">and still is</a>) just there to teach people about different methods of playing the game Diplomacy online.
                     Not exactly something thats going to upheave the social order. But I still take pride in it. I rely on word of mouth marketing to tell people why they should give this website 
-                    any amount of their sadly finite lives. Can you please Help me?<br/>
+                    any amount of their finite lives. Can you please help me?<br/>
                     Sincerly,<br/>
                     If you know anything about me, please don't spoil it.</p>
             </div>

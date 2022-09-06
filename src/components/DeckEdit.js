@@ -19,9 +19,7 @@ export default function DeckEdit() {
   var deckId = id
   var deckRef = database.ref('decks/' + deckId);
   useEffect(() => {
-    console.log("useEffect")
     deckRef.on('value', snapshot => {
-      console.log("on")
       let d = snapshot.val()
       if (d.metadata === undefined) {
         d.metadata = {}
@@ -37,6 +35,28 @@ export default function DeckEdit() {
   function updateMetadata(e) {
     e.preventDefault()
     database.ref('decks/' + deckId +  '/metadata').set({name: deckNameRef.current.value, description: deckDescriptionRef.current.value, public: deckPrivacyRef.current.value})
+    const publicDecksRef = database.ref('decks/public-decks')
+    publicDecksRef.on('value', snapshot => {
+      let d = snapshot.val()     
+      if (deckPrivacyRef.current.value === 'on'){
+        var priorPublicity = false
+        for (const deck in d){
+          if (d[deck].realId === deckId){
+            priorPublicity = true
+          }
+        }
+        if(priorPublicity === false){
+          database.ref('decks/public-decks').push({realId: deckId})
+        }
+      }
+      else {
+        for (const deck in d) {
+          if (d[deck].realId === deckId) {
+            database.ref('decks/public-decks/' + deck).remove()
+          }
+        }
+      }
+    });
   }
 
   function addCard(e) {
@@ -46,13 +66,13 @@ export default function DeckEdit() {
     deckAnswerRef.current.value = ""
   }
 
-  // function deleteCard(card) {
-  //   database.ref('decks/' + deckId +  '/cards/').remove()  
+  // function deleteCard(cardId) {
+  //   database.ref('decks/' + deckId +  '/cards/' + cardId).remove()  
   // }
   // Fix this while your at it
   function CardList(props) {
     const listItems = Object.keys(props.cards).map((key, index) => 
-      <tr><td>{props.cards[key].question}</td><td>{props.cards[key].answer}</td>{/*<td><Button onClick={deleteCard}>Delete</Button></td>*/}</tr>
+      <tr><td>{props.cards[key].question}</td><td>{props.cards[key].answer}</td>{/*<td><Button onClick={deleteCard(key)}>Delete</Button></td>*/}</tr>
     );
     return (
       <table>
@@ -106,16 +126,12 @@ export default function DeckEdit() {
               />
             </Form.Group>
               <Form.Group>
-                <Form.Check 
-                  type={"radio", "checkbox"}
-                  id="public-check"
-                  label="Public?"
+                <Form.Label>Public?(default is no, to make public this box must say "on")</Form.Label>
+                <Form.Control
+                  type="text"
                   ref={deckPrivacyRef}
                   defaultValue={currentDeck.metadata.public}
                 />
-                <h6>Temporary Sign: Making a <br/>
-                this deck public is only reversible with admin support, even if <br/>
-                you turn the check off.</h6>
               </Form.Group>
             <Button className="w-100" type="submit">
               Update
