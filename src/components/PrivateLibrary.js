@@ -5,27 +5,22 @@ import { useAuth } from "../contexts/AuthContext"
 
 export default function PublicLibrary() {
   const { currentUser } = useAuth()
-  const [currentList, setCurrentList] = useState({decksWrapper:{}})
+  const [currentList, setCurrentList] = useState({})
   
-  var allRef = database.ref('decks/')
-  console.log("this is a different branch")
+  var allRef = database.ref('users/' + currentUser.uid + '/creations')
+  
   useEffect(() => {
     console.log("useEffect")
     allRef.on('value', snapshot => {
       console.log("on")
       let d = snapshot.val()
-      for (const thing in d){
-        if (currentUser.uid !== d.decksWrapper[thing].uid){
-          delete d.decksWrapper[thing]
-        }
-      }
       setCurrentList(d)
       console.log(currentList)
     });
     }, [])  
-    function deckList(props){
-      const listItems = Object.keys(props.decks).map((key, index) => 
-       <tr><td>{props.decks[key].metadata.name}</td><td><Link to={location => `/deck/edit/${key}`} className="btn btn-primary w-100 mt-3">Deck Page</Link></td></tr> 
+    function DeckList(props){
+      const listItems = Object.keys(props.deckList).map((key, index) => 
+       <tr><td>{props.deckList[key].name}</td><td><Link to={location => `/deck/edit/${props.deckList[key].realId}`} className="btn btn-primary w-100 mt-3">Deck Page</Link></td></tr> 
       )
     return(
       <table>
@@ -37,7 +32,7 @@ export default function PublicLibrary() {
     }
   return(
     <>
-      <deckList decks={currentList}></deckList>
+      <DeckList deckList={currentList}></DeckList>
     </>
   )
 }

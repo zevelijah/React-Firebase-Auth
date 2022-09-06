@@ -3,39 +3,32 @@ import React, { useState, useEffect} from "react"
 import { Link } from "react-router-dom"
 
 export default function PublicLibrary() {
-  const [currentList, setCurrentList] = useState({decksWrapper:{}})
+  const [currentList, setCurrentList] = useState({})
   
-  var allRef = database.ref('decks/')
-  console.log("this is a different branch")
+  var allRef = database.ref('decks/public-decks')
+  
   useEffect(() => {
-    console.log("useEffect")
     allRef.on('value', snapshot => {
-      console.log("on")
       let d = snapshot.val()
-      for (const thing in d){
-        if (d.decksWrapper[thing].metadata.public !== 'on' || d.decksWrapper[thing].metadata.public === undefined){
-          delete d.decksWrapper[thing]
-        }
-      }
       setCurrentList(d)
       console.log(currentList)
     });
-    }, [])  
-    function DeckList(props){
-      const listItems = Object.keys(props.decks).map((key, index) => 
-       <tr><td>{props.decks[key].metadata.name}</td><td><Link to={location => `/deck/edit/${key}`} className="btn btn-primary w-100 mt-3">Deck Page</Link></td></tr> 
-      )
-    return(
-      <table>
-        <tbody>
-        {listItems}
-        </tbody>
-      </table>      
+  }, [])  
+  function DeckList(props){
+    const listItems = Object.keys(props.deckList).map((key, index) => 
+      <tr><td>{props.deckList[key].name}</td><td><Link to={location => `/deck/edit/${props.deckList[key].realId}`} className="btn btn-primary w-100 mt-3">Deck Page</Link></td><td>By: {props.deckList[key].author}</td></tr> 
+    )
+  return(
+    <table>
+      <tbody>
+      {listItems}
+      </tbody>
+    </table>      
     );
     }
   return(
     <>
-      <DeckList decks={currentList}></DeckList>
+      <DeckList deckList={currentList}></DeckList>
     </>
   )
 }

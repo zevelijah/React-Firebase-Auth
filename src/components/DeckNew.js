@@ -13,6 +13,7 @@ export default function DeckEdit() {
   }
   let deckRef = database.ref('decks/decksWrapper/').push({uid: currentUser.uid})
   let deckId = deckRef.key
+  database.ref('users/' + currentUser.uid + '/creations').push({realId: deckId})
   history.replace(`/deck/edit/${deckId}`)
   return (<><h1>Creating Deck...</h1></>)
 }

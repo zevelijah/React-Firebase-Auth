@@ -52,6 +52,9 @@ export default function Dashboard() {
         <Link to='/your-decks' className="btn btn-primary w-100 mt-3" style={{width: "50vw"}, {float: "left"}}>
           Your Decks
         </Link>
+        <Link to='/help' className="btn btn-primary w-100 mt-3" style={{width: "50vw"}, {float: "left"}}>
+          Help
+        </Link>
       </div>
     </>
   )
