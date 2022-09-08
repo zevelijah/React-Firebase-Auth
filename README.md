@@ -1,3 +1,5 @@
+## Disclaimer:
+Due to reclessness, this fork no longer is connected to a repo in my control.
 ## Purpose of this fork(for webDevSimplyfied):
 
 As you released your project, on a youtube video, in public, I belive I am fully within my right to manipulate it to my own ends. If that makes me a script kitty,<br />
